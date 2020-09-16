@@ -1,0 +1,12 @@
+FROM tomcat:9.0-jdk11-adoptopenjdk-hotspot
+
+RUN apt-get update && \
+    apt-get -y install wget && \
+    apt-get -y install build-essential && \
+    cd /usr/local && \
+    wget https://www.imagemagick.org/download/ImageMagick.tar.gz && \
+    tar xvzf ImageMagick.tar.gz && cd ImageMagick-7* && \
+    ./configure && make && make install && \
+    ldconfig /usr/local/lib && cd /usr/local && \
+    rm -rf ImageMagick-7* && rm -f ImageMagick.tar.gz && apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
